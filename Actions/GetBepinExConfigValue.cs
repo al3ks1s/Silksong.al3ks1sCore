@@ -10,7 +10,7 @@ namespace al3ks1sCore.Actions
     {
 
         [RequiredField]
-        [HutongGames.PlayMaker.Tooltip("The plugin ID defined in the main class.")]
+        [HutongGames.PlayMaker.Tooltip("The plugin ID as defined in the main class.")]
         public string BepinExPluginID;
 
         [RequiredField]
@@ -21,9 +21,9 @@ namespace al3ks1sCore.Actions
 
         public NamedVariable storeVariable;
 
-        private ConfigFile config;
+        protected ConfigFile config;
 
-        public void Awake()
+        public override void Awake()
         {
             if (!Chainloader.PluginInfos.TryGetValue(BepinExPluginID, out var plugin))
             {
@@ -34,7 +34,7 @@ namespace al3ks1sCore.Actions
             config = plugin.Instance.Config;        
         }
 
-        public void Start()
+        public override void OnEnter()
         {
             DoGetValue();
             base.Finish();
@@ -42,8 +42,8 @@ namespace al3ks1sCore.Actions
 
         public virtual void DoGetValue()
         {
-            object value = config.TryGetEntry<object>(BepinExConfigSection, BepinExConfigKey, out value);
-            storeVariable.RawValue = value;
+            if (config.TryGetEntry<object>(BepinExConfigSection, BepinExConfigKey, out ConfigEntry<object> value))
+                storeVariable.RawValue = value.Value;
         }
 
     }
