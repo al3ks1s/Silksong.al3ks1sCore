@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace al3ks1sCore.Behaviours
 {
@@ -17,7 +14,9 @@ namespace al3ks1sCore.Behaviours
         {
 
             _selfHealth = GetComponent<HealthManager>();
-            _targetHealth = Target.GetComponent<HealthManager>();
+
+            if (Target != null )
+                _targetHealth = Target.GetComponent<HealthManager>();
 
             if (_selfHealth != null && _targetHealth != null)
                 _selfHealth.TookDamage += TransferDamage;
