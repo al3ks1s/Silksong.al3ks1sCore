@@ -5,6 +5,7 @@ using HutongGames.PlayMaker;
 namespace al3ks1sCore.Actions
 {
 
+    [ActionCategory("Al3ks1s Core")]
     [Tooltip("Generic Bepin Ex configuration retrieval action, use specific typed actions for better stability")]
     internal class GetBepinExConfigValue : FsmStateAction
     {
