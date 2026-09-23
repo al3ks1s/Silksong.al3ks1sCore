@@ -1,5 +1,5 @@
+using al3ks1sCore.AssetManagers;
 using BepInEx;
-using System.IO;
 
 namespace al3ks1sCore
 {
@@ -12,8 +12,8 @@ namespace al3ks1sCore
 
         private void Awake()
         {
-
-            CorePath = Path.GetDirectoryName(Info.Location);
+            CorePath = CatalogManager.GetAssetPath(Info, "Assets");
+            // CatalogManager.Instance.LoadCatalog(CorePath, "Assets", "catalog");
 
             // Put your initialization logic here
             Logger.LogInfo($"Plugin {Name} ({Id}) has loaded!");
