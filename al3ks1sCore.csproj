@@ -57,8 +57,9 @@
     </PropertyGroup>
 
     <!-- Local install -->
-    <Copy SourceFiles="@(Binaries)" DestinationFolder="$(SilksongPluginsFolder)/al3ks1s-$(AssemblyTitle)/%(Binaries.LocalDir)" Condition="'$(SilksongPluginsFolder)' != '' And Exists('$(SilksongPluginsFolder)')" />
-	
+    <Copy SourceFiles="@(Binaries)" DestinationFolder="$(UnityPluginsFolder)/%(Binaries.LocalDir)" Condition="'$(UnityPluginsFolder)' != '' And Exists('$(UnityPluginsFolder)')" />
+
+
     <!-- Thunderstore packaging -->
     <RemoveDir Directories="$(ThunderstoreDir)/temp;$(ThunderstoreDir)/dist" />
     <MakeDir Directories="$(ThunderstoreDir)/temp" />
