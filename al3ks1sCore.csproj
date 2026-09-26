@@ -41,9 +41,11 @@
   </ItemGroup>
 
 	<!-- Gather all assets in the project -->
-    <ItemGroup>
-	    <Assets Include="Assets/**/*" PackDir="plugins/Assets" />		
-    </ItemGroup>
+	<ItemGroup>
+		<Assets Include="Assets/**/*" PackDir="plugins/Assets">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Assets>
+	</ItemGroup>
 	
   <Target Name="CopyAndPackageMod" AfterTargets="PostBuildEvent">
     <ItemGroup>
@@ -56,17 +58,15 @@
 
     <!-- Local install -->
     <Copy SourceFiles="@(Binaries)" DestinationFolder="$(SilksongPluginsFolder)/al3ks1s-$(AssemblyTitle)/%(Binaries.LocalDir)" Condition="'$(SilksongPluginsFolder)' != '' And Exists('$(SilksongPluginsFolder)')" />
-    <Copy SourceFiles="@(Assets)" DestinationFolder="$(SilksongPluginsFolder)/al3ks1s-$(AssemblyTitle)/%(Assets.PackDir)" Condition="'$(SilksongPluginsFolder)' != '' And Exists('$(SilksongPluginsFolder)')" />
-
+	
     <!-- Thunderstore packaging -->
     <RemoveDir Directories="$(ThunderstoreDir)/temp;$(ThunderstoreDir)/dist" />
     <MakeDir Directories="$(ThunderstoreDir)/temp" />
 	  
     <Copy SourceFiles="@(Binaries)" DestinationFolder="$(ThunderstoreDir)/temp/%(Binaries.PackDir)" />
-    <Copy SourceFiles="@(Binaries)" DestinationFolder="$(ThunderstoreDir)/temp/%(Binaries.PackDir)" />
 	  
 	<!-- Copy Assets to thunderstore expected location -->
-    <Copy SourceFiles="@(Assets)" DestinationFolder="$(ThunderstoreDir)/temp/%(Assets.PackDir)" />
+    <Copy SourceFiles="@(Assets)" DestinationFolder="$(ThunderstoreDir)/temp/%(Assets.PackDir)/%(Assets.RecursiveDir)" />
     
 	  
 	<PropertyGroup>

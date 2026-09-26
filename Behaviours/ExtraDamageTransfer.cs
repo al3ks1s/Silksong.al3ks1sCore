@@ -20,7 +20,7 @@ namespace al3ks1sCore.Behaviours
 
             if (_selfHealth != null && _targetHealth != null)
                 _selfHealth.TookDamage += TransferDamage;
-
+             
         }
 
         public void TransferDamage()
