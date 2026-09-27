@@ -11,26 +11,22 @@ namespace al3ks1sCore.Behaviours
 
         public void Start() 
         {
-            SceneManager.sceneLoaded += DoRecycle;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += DoRecycle;
         }
 
-        public void DoRecycle(Scene scene, LoadSceneMode mode)
+        public void DoRecycle(Scene originScene, Scene targetScene)
         {
-
             if (KeepWhenScenePattern)
-                if ( !(ScenePattern.Equals(string.Empty)) && scene.name.Contains(ScenePattern))
+                if ( !(ScenePattern.Equals(string.Empty)) && targetScene.name.Contains(ScenePattern))
                     return;
 
-            if (mode == LoadSceneMode.Additive)
-                return;
-
             Destroy(gameObject);
-
         }
 
         public void OnDestroy()
         {
-            SceneManager.sceneLoaded -= DoRecycle;
+            SceneManager.activeSceneChanged -= DoRecycle;
         }
     }
 }
