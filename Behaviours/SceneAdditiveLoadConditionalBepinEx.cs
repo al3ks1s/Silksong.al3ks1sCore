@@ -1,6 +1,4 @@
-﻿using BepInEx.Bootstrap;
-using BepInEx.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -93,12 +91,6 @@ namespace al3ks1sCore.Behaviours
 
             public T GetConfigValue()
             {
-                if (Chainloader.PluginInfos.TryGetValue(BepinExPluginID, out var plugin))
-                {
-                    if (plugin.Instance.Config.TryGetEntry<T>(SectionName, KeyName, out ConfigEntry<T> value))
-                        return value.Value;
-                }
-
                 return default;
             }
         }
