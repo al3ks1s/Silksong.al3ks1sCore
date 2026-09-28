@@ -46,9 +46,9 @@ namespace al3ks1sCore.Behaviours
 
         private bool BepinExTests()
         {
-            if (tests != null)
+            if (bepinTests != null)
             {
-                return tests.IsFulfilled;
+                return bepinTests.IsFulfilled;
             }
 
             return false;
@@ -59,6 +59,21 @@ namespace al3ks1sCore.Behaviours
     [Tooltip("Test group on bepinex configurations")]
     public class BepinExTest
     {
+        public enum NumTestType
+        {
+            Equal,
+            NotEqual,
+            LessThan,
+            MoreThan
+        }
+        public enum StringTestType
+        {
+            Equal,
+            NotEqual,
+            Contains,
+            NotContains
+        }
+
 
         [Serializable]
         public abstract class BepinTest
@@ -99,6 +114,89 @@ namespace al3ks1sCore.Behaviours
             }
         }
 
+        [Serializable]
+        public class BepinTestInt : BepinTest<int>
+        {
+            public int ExpectedValue;
+            public NumTestType testType;
+
+            public override bool IsFulfilled
+            {
+                get
+                {
+                    var configValue = GetConfigValue();
+                    switch (testType)
+                    {
+                        case NumTestType.Equal:
+                            return configValue == ExpectedValue;
+                        case NumTestType.NotEqual:
+                            return configValue != ExpectedValue;
+                        case NumTestType.LessThan:
+                            return configValue < ExpectedValue;
+                        case NumTestType.MoreThan:
+                            return configValue > ExpectedValue;
+                        default:
+                            return false;
+                    }
+                }
+            }
+        }
+
+        [Serializable]
+        public class BepinTestFloat : BepinTest<float>
+        {
+            public float ExpectedValue;
+            public NumTestType testType;
+
+            public override bool IsFulfilled
+            {
+                get
+                {
+                    var configValue = GetConfigValue();
+                    switch (testType)
+                    {
+                        case NumTestType.Equal:
+                            return configValue == ExpectedValue;
+                        case NumTestType.NotEqual:
+                            return configValue != ExpectedValue;
+                        case NumTestType.LessThan:
+                            return configValue < ExpectedValue;
+                        case NumTestType.MoreThan:
+                            return configValue > ExpectedValue;
+                        default:
+                            return false;
+                    }
+                }
+            }
+        }
+        [Serializable]
+        public class BepinTestString : BepinTest<string>
+        {
+            public string ExpectedValue;
+            public StringTestType testType;
+
+            public override bool IsFulfilled
+            {
+                get
+                {
+                    var configValue = GetConfigValue();
+                    switch (testType)
+                    {
+                        case StringTestType.Equal:
+                            return configValue.Equals(ExpectedValue);
+                        case StringTestType.NotEqual:
+                            return !configValue.Equals(ExpectedValue);
+                        case StringTestType.Contains:
+                            return configValue.Contains(ExpectedValue);
+                        case StringTestType.NotContains:
+                            return !configValue.Contains(ExpectedValue);
+                        default:
+                            return false;
+                    }
+                }
+            }
+        }
+
 
         [Serializable]
         public struct BepinTestGroup
@@ -121,7 +219,6 @@ namespace al3ks1sCore.Behaviours
                 }
             }
         }
-
 
         [SerializeField]
         public BepinTestGroup[] tests;
