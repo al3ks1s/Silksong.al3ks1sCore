@@ -56,6 +56,7 @@ namespace al3ks1sCore.Behaviours
     }
 
     [Serializable]
+    [Tooltip("Test group on bepinex configurations")]
     public class BepinExTest
     {
 
@@ -79,8 +80,8 @@ namespace al3ks1sCore.Behaviours
             {
                 if (Chainloader.PluginInfos.TryGetValue(BepinExPluginID, out var plugin))
                 {
-                    if (plugin.Instance.Config.TryGetEntry<object>(SectionName, KeyName, out ConfigEntry<object> value))
-                        return (T)value.Value;
+                    if (plugin.Instance.Config.TryGetEntry<T>(SectionName, KeyName, out ConfigEntry<T> value))
+                        return value.Value;
                 }
 
                 return default;
@@ -103,6 +104,7 @@ namespace al3ks1sCore.Behaviours
         public struct BepinTestGroup
         {
 
+            [SerializeReference]
             public BepinTest[] tests;
 
             public bool IsFulfilled
