@@ -104,8 +104,11 @@ namespace al3ks1sCore.Behaviours
         public struct BepinTestGroup
         {
 
+            public BepinTestGroup()
+            { }
+
             [SerializeReference]
-            public BepinTest[] tests;
+            public BepinTest[] tests = Array.Empty<BepinTest>();
 
             public bool IsFulfilled
             {
