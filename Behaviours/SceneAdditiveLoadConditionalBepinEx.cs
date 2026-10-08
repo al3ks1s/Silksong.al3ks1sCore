@@ -199,7 +199,7 @@ namespace al3ks1sCore.Behaviours
 
 
         [Serializable]
-        public struct BepinTestGroup
+        public class BepinTestGroup
         {
 
             public BepinTestGroup()
